@@ -3,7 +3,14 @@ require_relative 'models/category'
 require_relative 'models/product'
 require 'json'
 require 'sinatra'
+require 'sinatra/cross_origin'
 require 'pry'
+
+register Sinatra::CrossOrigin
+
+configure do
+  enable :cross_origin
+end
 
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
 
@@ -16,12 +23,17 @@ after do
   ActiveRecord::Base.connection.close
 end
 
+# options '/*' do
+#   response["Access-Control-Allow-Headers"] = "origin, x-requested-with, content-type"
+# end
+
 #make new product
 post '/api/product' do
-  product = Product.create(id: Product.maximum(:id).next, item: params[:item], price: params[:price],
-    quantity: params[:quantity], category_id: params[:category_id])
-    status 201
-  return product.to_json
+  product = Product.create(id: Product.maximum(:id).next,
+   item: params[:item],
+   price: params[:price],
+   quantity: params[:quantity],
+   category_id: params[:category_id]).to_json
 end
 
 #get product by id
