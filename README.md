@@ -16,7 +16,7 @@ end
   ```
 
 ## Motivation
-Class exercise on building web apps with Sinatra and RESTful APIs.
+Class exercise on building web apps.
 
 <!-- ```ruby
 ``` -->
