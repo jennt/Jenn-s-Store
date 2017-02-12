@@ -73,7 +73,6 @@ patch '/api/product/item' do |id|
   product.update(item: params[:item])
     status 201
   return product.to_json
-
 end
 
 #delete product by id
